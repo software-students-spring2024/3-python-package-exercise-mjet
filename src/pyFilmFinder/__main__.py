@@ -1,14 +1,14 @@
 import os
 import argparse  # https://docs.python.org/3/library/argparse.html
 from dotenv import load_dotenv
-from filmFinder import FilmFinder
+from finder import Finder
 
 
 def main():
     """
     Entry point for the Film Finder CLI application.
     """
-    finder = FilmFinder()
+    finder = Finder()
     load_dotenv()
     api_key = os.getenv("API_KEY")
 
@@ -25,20 +25,11 @@ def main():
     parser = argparse.ArgumentParser(description="Film Finder CLI")
     subparsers = parser.add_subparsers(dest="command")
 
-    # Command to search films
-    search_parser = subparsers.add_parser(
-        "search",
-        help="Search for films by keywords",
-        description="Search for films based on a keyword. Usage: pyFilmFinder search <keyword>",
-    )
-    search_parser.add_argument("keyword", help="Keyword to search for")
-
     # Command to find films
     find_parser = subparsers.add_parser(
         "find",
         help="Find films by genres, cast, and optionally a release year",
-        description="Find films based on specified genres, cast, and optionally a release year.\n"
-        "Usage: pyFilmFinder find [--genres GENRES] [--cast CAST] [--year YEAR]",
+        description="Find films based on specified genres, cast, and optionally a release year.",
     )
     # TODO: allow multiple genres
     find_parser.add_argument("--genres", default=None, help="Genres to filter by")
@@ -47,28 +38,57 @@ def main():
     # TODO: allow user to input decade in place of year
     find_parser.add_argument("--year", default=None, help="Year to filter by")
 
+    # Command to search films
+    search_parser = subparsers.add_parser(
+        "search",
+        help="Search for films by keywords",
+        description="Search for films based on a keyword.",
+    )
+    search_parser.add_argument(
+        "keyword",
+        help="Specify a keyword to search for. The search will return films related to this keyword.",
+    )
+
     # Command to find similar films
     similar_parser = subparsers.add_parser(
         "similar",
-        help="Find films similar to the specified film",
-        description="Find films that are similar to a specified film. Usage: pyFilmFinder similar --id FILM_ID",
+        help="Find films similar to the specified film.",
+        description="Find films that are similar to a specified film.",
     )
-    similar_parser.add_argument("--id", help="Film ID to find similar films for")
+    similar_parser.add_argument(
+        "film_id",
+        help="ID of the film for which to find similar films. Use the 'search' command to find the film ID.",
+    )
+
+    # Command to get details of a film
+    details_parser = subparsers.add_parser(
+        "details",
+        help="Retrieve detailed information about a specified film.",
+        description="Retrieve detailed information about a specified film.",
+    )
+    details_parser.add_argument(
+        "film_id",
+        help="ID of the film for which to retrieve details. Use the 'search' command to find the film ID.",
+    )
 
     args = parser.parse_args()
 
-    # TODO: print help if no arguments are provided
-
-    # TODO: replace print statement based what each function returns
     if args.command == "search":
-        finder.search_films(args.keyword)
-        print("search films")
+        print(finder.search_films(args.keyword))
     elif args.command == "find":
-        finder.find_films(args.genres, args.cast, args.year)
-        print("find films")
+        print(finder.find_films(args.genres, args.cast, args.year))
     elif args.command == "similar":
-        finder.find_similar(args.id)
-        print("find similar")
+        if args.film_id.isdigit():
+            print(finder.find_similar(args.film_id))
+        else:
+            print("Invalid input. Please enter a valid film ID as an integer.")
+    elif args.command == "details":
+        if args.film_id.isdigit():
+            print(finder.get_details(args.film_id))
+        else:
+            print("Invalid input. Please enter a valid film ID as an integer.")
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
