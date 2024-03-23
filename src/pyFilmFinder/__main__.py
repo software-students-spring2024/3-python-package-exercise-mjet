@@ -28,20 +28,20 @@ def main():
     # Command to find films
     find_parser = subparsers.add_parser(
         "find",
-        help="Find films by genres, cast, and optionally a release year",
+        help="Find films based on specified genre(s), cast, and optionally a release year.",
         description="Find films based on specified genres, cast, and optionally a release year.",
     )
     # TODO: allow multiple genres
-    find_parser.add_argument("--genres", default=None, help="Genres to filter by")
+    find_parser.add_argument("--genres", default=None, help="filter by genres")
     # TODO: allow multiple cast memebers (directors and actors)
-    find_parser.add_argument("--cast", default=None, help="Cast to filter by")
+    find_parser.add_argument("--cast", default=None, help="filter by cast members")
     # TODO: allow user to input decade in place of year
-    find_parser.add_argument("--year", default=None, help="Year to filter by")
+    find_parser.add_argument("--year", default=None, help="filter by year")
 
     # Command to search films
     search_parser = subparsers.add_parser(
         "search",
-        help="Search for films by keywords",
+        help="Search for films based on a keyword.",
         description="Search for films based on a keyword.",
     )
     search_parser.add_argument(
@@ -57,6 +57,7 @@ def main():
     )
     similar_parser.add_argument(
         "film_id",
+        type=int,
         help="ID of the film for which to find similar films. Use the 'search' command to find the film ID.",
     )
 
@@ -68,6 +69,7 @@ def main():
     )
     details_parser.add_argument(
         "film_id",
+        type=int,
         help="ID of the film for which to retrieve details. Use the 'search' command to find the film ID.",
     )
 
@@ -78,15 +80,9 @@ def main():
     elif args.command == "find":
         print(finder.find_films(args.genres, args.cast, args.year))
     elif args.command == "similar":
-        if args.film_id.isdigit():
-            print(finder.find_similar(args.film_id))
-        else:
-            print("Invalid input. Please enter a valid film ID as an integer.")
+        print(finder.find_similar(args.film_id))
     elif args.command == "details":
-        if args.film_id.isdigit():
-            print(finder.get_details(args.film_id))
-        else:
-            print("Invalid input. Please enter a valid film ID as an integer.")
+        print(finder.get_details(args.film_id))
     else:
         parser.print_help()
 

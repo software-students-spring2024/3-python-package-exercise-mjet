@@ -61,15 +61,7 @@ class Finder:
         if year:
             api_url += f"&primary_release_year={year}"
 
-        try:
-            response = requests.get(api_url, timeout=10)
-            response.raise_for_status()
-            films = response.json()
-            # TODO: parse results, return n number of films
-            return films.get("results", [])
-        except requests.exceptions.RequestException as e:
-            print(f"Failed to fetch films from API: {e}.")
-            return []
+        return self.get_films(api_url)
 
     def search_films(self, keyword: str) -> str:
         """
