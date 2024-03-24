@@ -103,9 +103,10 @@ class Finder:
         film_id = film.get("id", "")
         vote_average = film.get("vote_average", "")
         overview = film.get("overview", "")
+        release_date = film.get("release_date","")
 
         formatted_film = (
-            f"Title: {title} (ID: {film_id}) Vote Average: {vote_average}\n"
+            f"Title: {title} Released: {release_date} (ID: {film_id}) Vote Average: {vote_average}\n"
         )
         formatted_film += f"Description: {overview}\n\n"
         return formatted_film
@@ -131,6 +132,7 @@ class Finder:
                     or not film.get("vote_average")
                     or not film.get("overview")
                     or film.get("popularity", 0) < 10
+                    or not film.get("release_date")
                 ):
                     continue
                 formatted_films += self.format_film(film)
