@@ -24,6 +24,9 @@ jobs:
       - name: Turn on 'editable' mode
         run: |
           pipenv install -e .
+      - name: Fetch API Key for test
+        run: |
+          echo "${{secrets.TEST_API_KEY}}"
       - name: Test with pytest
         run: |
           pipenv run pip install pytest
