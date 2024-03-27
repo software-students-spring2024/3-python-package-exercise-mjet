@@ -1,6 +1,6 @@
 import pytest
 import os
 
-API_KEY = os.environ['API_KEY']
+API_KEY = os.getenv('API_KEY')
 print(API_KEY)
 
