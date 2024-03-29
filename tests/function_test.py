@@ -2,7 +2,7 @@ import pytest
 import os
 import requests
 import sys
-sys.path.append('src\pyFilmFinder')
+sys.path.append('src\\pyFilmFinder')
 from finder import Finder
 finder = Finder()
 API_KEY = os.getenv('API_KEY')
