@@ -1,5 +1,5 @@
 import os
-import argparse  # https://docs.python.org/3/library/argparse.html
+import argparse
 from dotenv import load_dotenv
 from finder import Finder
 
