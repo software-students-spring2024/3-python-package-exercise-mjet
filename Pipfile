@@ -8,6 +8,8 @@ python-dotenv = "*"
 requests = "*"
 coverage = "*"
 pytest = "*"
+nltk = "*"
+numpy = "*"
 
 [dev-packages]
 build = "*"
