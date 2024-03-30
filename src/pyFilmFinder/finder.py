@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-
+import find_similar
 
 class Finder:
     """
@@ -78,6 +78,28 @@ class Finder:
             f"{self.base_url}movie/{film_id}/recommendations?api_key={self.api_key}"
         )
         return self.get_films(api_url)
+    
+    #return a ranking of films sorted by similar sounding overviews
+    def rank_similar_by_overview(self, film_id: int) -> str:
+
+        """
+        target_film  = finder.get_film_dict(finder.get_film_id('cloverfield'))
+        overview = target_film['overview']
+        genres = [genre['name'] for genre in target_film['genres']]
+        """
+
+        target_film = self.get_film_dict(film_id)
+        #get films in same genre
+        api_url = f"{self.base_url}discover/movie?language=en-US&api_key={self.api_key}"
+        films_in_genre = self.get_films_nostr(api_url)
+        for film in films_in_genre:
+            if not type(film) == dict:
+                films_in_genre.remove(film) 
+
+        if target_film not in films_in_genre:
+            films_in_genre += [target_film]
+
+        return find_similar.tf_idf(target_film, films_in_genre)
 
     def get_details(self, film_id: int) -> str:
         """
@@ -128,7 +150,16 @@ class Finder:
         response = requests.get(api_url, timeout = 10)
         films = response.json()
         return films
-
+    
+    #return the results of a given request without converting it into a string
+    def get_films_nostr(self, api_url):
+        response = requests.get(api_url, timeout=10)
+        response.raise_for_status()
+        films = response.json()
+        if films.get("total_results", 0) == 0:
+            return "No results found."
+        films = films.get("results", [])
+        return films
 
     def get_films(self, api_url: str) -> str:
         """

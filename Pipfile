@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 python-dotenv = "*"
 requests = "*"
+nltk = "*"
+numpy = "*"
 
 [dev-packages]
 pytest = "*"
