@@ -109,6 +109,26 @@ class Finder:
         )
         formatted_film += f"Description: {overview}\n\n"
         return formatted_film
+    
+    #return id of the first film appearing in a search for a given kword
+    def get_film_id(self, keyword: str) -> int:
+        api_url = f"{self.base_url}search/movie?language=en-US&page=1&query={keyword}&api_key={self.api_key}"
+        response = requests.get(api_url, timeout = 10)
+        films = response.json().get('results',[])
+        if len(films) == 0:
+            print("No results found")
+            return -1
+        else:
+            return films[1]['id']
+
+    #return the dict object associated with a given film id
+    def get_film_dict(self, film_id: int) -> dict:
+        #api_url = f"{self.base_url}movie/{film_id}/?api_key={self.api_key}"
+        api_url = f"{self.base_url}movie/{film_id}?language=en-US&api_key={self.api_key}"
+        response = requests.get(api_url, timeout = 10)
+        films = response.json()
+        return films
+
 
     def get_films(self, api_url: str) -> str:
         """
