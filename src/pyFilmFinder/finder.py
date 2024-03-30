@@ -142,7 +142,7 @@ class Finder:
             if films.get("total_results", 0) == 0:
                 return "No results found."
             films = films.get("results", [])
-            formatted_films = "===================================================================================="
+            formatted_films = ""
             count = 0
             for film in films:
                 if count >= 5:
@@ -157,7 +157,7 @@ class Finder:
                     continue
                 formatted_films += self.format_film(film)
                 count += 1
-            formatted_films+="===================================================================================="
+            
             return formatted_films
         except requests.exceptions.RequestException as e:
             return f"Failed to fetch films from API: {e}."
