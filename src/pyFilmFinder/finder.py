@@ -91,7 +91,27 @@ class Finder:
             response.raise_for_status()
             details = response.json()
             # TODO: parse response for desired fields
-            return details
+            title = details.get("title", "")
+            film_id = details.get("id", "")
+            vote_average = details.get("vote_average", "")
+            overview = details.get("overview", "")
+            release_date = details.get("release_date","")
+            tagline = details.get("tagline", "")
+            released = details.get("status", "")
+            budget = details.get("budget", "")
+            popularity = details.get("popularity", "")
+            revenue = details.get("revenue", "")
+            genre_names = [genre['name'] for genre in details['genres']]
+            production_companies = [company['name'] for company in details['production_companies']]
+            
+
+            details_formatted = "======================================================================================"
+            details_formatted += (
+            f"\nTitle: {title}\nReleased: {release_date}\n(ID: {film_id})\nGenres: {genre_names}\nProduction Companies: {production_companies}\nStatus: {released}\nBudget: {budget}\nVote Average: {vote_average}\nPopularity Score: {popularity}\nRevenue: {revenue}\n"
+        )
+            details_formatted+= f"Description: {overview}\nTagline: {tagline}\n\n"
+            details_formatted += "======================================================================================"
+            return details_formatted
         except requests.exceptions.RequestException as e:
             return f"Failed to fetch films from API: {e}."
 
@@ -122,7 +142,7 @@ class Finder:
             if films.get("total_results", 0) == 0:
                 return "No results found."
             films = films.get("results", [])
-            formatted_films = ""
+            formatted_films = "===================================================================================="
             count = 0
             for film in films:
                 if count >= 5:
@@ -137,6 +157,7 @@ class Finder:
                     continue
                 formatted_films += self.format_film(film)
                 count += 1
+            formatted_films+="===================================================================================="
             return formatted_films
         except requests.exceptions.RequestException as e:
             return f"Failed to fetch films from API: {e}."
