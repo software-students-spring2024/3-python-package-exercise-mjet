@@ -1,7 +1,7 @@
-name: CI
+name: CI / CD
 on:
-  push: 
-    branches: ["main"]
+  push:
+    branches: ["main", "tests","JohanBranch"]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,5 +25,8 @@ jobs:
         run: |
           pipenv install -e .
       - name: Test with pytest
+        env:
+          API_KEY: ${{secrets.TEST_API_KEY}}
         run: |
+          pipenv run pip install pytest
           pipenv run python -m pytest

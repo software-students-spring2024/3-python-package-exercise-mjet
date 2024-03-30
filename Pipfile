@@ -6,11 +6,13 @@ name = "pypi"
 [packages]
 python-dotenv = "*"
 requests = "*"
+
 nltk = "*"
 numpy = "*"
+coverage = "*"
+pytest = "*"
 
 [dev-packages]
-pytest = "*"
 build = "*"
 twine = "*"
 
