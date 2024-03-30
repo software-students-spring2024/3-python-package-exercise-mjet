@@ -90,3 +90,18 @@ def test_find_similar():
     assert outputtemp == finder.find_similar(27205)
     outputtemp2 = "Title:TheDarkKnightReleased:2008-07-16(ID:155)VoteAverage:8.515Description:Batmanraisesthestakesinhiswaroncrime.WiththehelpofLt.JimGordonandDistrictAttorneyHarveyDent,Batmansetsouttodismantletheremainingcriminalorganizationsthatplaguethestreets.Thepartnershipprovestobeeffective,buttheysoonfindthemselvespreytoareignofchaosunleashedbyarisingcriminalmastermindknowntotheterrifiedcitizensofGothamastheJoker.Title:InterstellarReleased:2014-11-05(ID:157336)VoteAverage:8.431Description:Theadventuresofagroupofexplorerswhomakeuseofanewlydiscoveredwormholetosurpassthelimitationsonhumanspacetravelandconquerthevastdistancesinvolvedinaninterstellarvoyage.Title:ShutterIslandReleased:2010-02-14(ID:11324)VoteAverage:8.202Description:WorldWarIIsoldier-turned-U.S.MarshalTeddyDanielsinvestigatesthedisappearanceofapatientfromahospitalforthecriminallyinsane,buthiseffortsarecompromisedbytroublingvisionsandamysteriousdoctor.Title:AvatarReleased:2009-12-15(ID:19995)VoteAverage:7.58Description:Inthe22ndcentury,aparaplegicMarineisdispatchedtothemoonPandoraonauniquemission,butbecomestornbetweenfollowingordersandprotectinganaliencivilization.Title:TheHungerGamesReleased:2012-03-12(ID:70160)VoteAverage:7.205Description:EveryyearintheruinsofwhatwasonceNorthAmerica,thenationofPanemforceseachofitstwelvedistrictstosendateenageboyandgirltocompeteintheHungerGames.Parttwistedentertainment,partgovernmentintimidationtactic,theHungerGamesareanationallytelevisedeventinwhich“Tributes”mustfightwithoneanotheruntilonesurvivorremains.Pittedagainsthighly-trainedTributeswhohavepreparedfortheseGamestheirentirelives,KatnissisforcedtorelyuponhersharpinstinctsaswellasthementorshipofdrunkenformervictorHaymitchAbernathy.Ifshe’severtoreturnhometoDistrict12,Katnissmustmakeimpossiblechoicesinthearenathatweighsurvivalagainsthumanityandlifeagainstlove.Theworldwillbewatching."
     assert outputtemp2.strip().replace(" ", "")[:50] == finder.find_similar(27205).strip().replace(" ", "")[:50], f"incorrect output for similar"
+
+def test_format_film():
+    film = { "title": "Ratatouille", "id":"2062", "vote_average": "7.818", "overview": "Remy, a resident of Paris, appreciates good food and has quite a sophisticated palate. He would love to become a chef so he can create and enjoy culinary masterpieces to his heart's delight. The only problem is, Remy is a rat. When he winds up in the sewer beneath one of Paris' finest restaurants, the rodent gourmet finds himself ideally placed to realize his dream.", "release_date": "2007-06-28"}
+    title = film.get("title", "")
+    film_id = film.get("id", "")
+    vote_average = film.get("vote_average", "")
+    overview = film.get("overview", "")
+    release_date = film.get("release_date","")
+    test_formatted_film = (
+            f"Title: {title} Released: {release_date} (ID: {film_id}) Vote Average: {vote_average}\n"
+        )
+    test_formatted_film += f"Description: {overview}\n\n"
+    
+    assert test_formatted_film == finder.format_film(film)
+    
