@@ -168,8 +168,8 @@ class Finder:
 
     #return the dict object associated with a given film id
     def get_film_dict(self, film_id: int) -> dict:
-        api_url = f"{self.base_url}movie/{film_id}/?api_key={self.api_key}"
-        #api_url = f"{self.base_url}movie/{film_id}?language=en-US&api_key={self.api_key}"
+        #api_url = f"{self.base_url}movie/{film_id}/?api_key={self.api_key}"
+        api_url = f"{self.base_url}movie/{film_id}?language=en-US&api_key={self.api_key}"
         response = requests.get(api_url, timeout = 10)
         films = response.json()
         return films

@@ -35,7 +35,10 @@ def tf_idf(target_film, films_in_genre):
     DOCS_IN_CORPUS = len(films_in_genre)
     DOCS_CONCAT = ""
     for film in films_in_genre:
-        DOCS_CONCAT += film['overview'] + '\n'
+        try:
+            DOCS_CONCAT += film['overview'] + '\n'
+        except: 
+            pass
         
     words_docs_concat = nltk.word_tokenize(DOCS_CONCAT)
     unique_word_keys = Counter(words_docs_concat).keys()#list of all unique words in corpus, use to ensure that all vectors are congruent
