@@ -1,8 +1,10 @@
 # pyFilmFinder
 
+![CI / CD](https://github.com/software-students-spring2024/3-python-package-exercise-mjet/actions/workflows/build.yaml/badge.svg)
+
 ## Project Description
 
-**pyFilmFinder** is a Python package designed to simplify the process of discovering and exploring films. Leveraging TMDB (The Movie Database), the package delivers personalized recommendations, enhancing the film-viewing experience by helping users discover films that align with their unique tastes and preferences.
+[**pyFilmFinder**](https://pypi.org/project/pyFilmFinder/) is a Python package designed to simplify the process of discovering and exploring films. Leveraging TMDB (The Movie Database), the package delivers personalized recommendations, enhancing the film-viewing experience by helping users discover films that align with their unique tastes and preferences.
 
 ### Features
 
@@ -50,7 +52,7 @@ The search command takes one argument:
 Example usage:
 
 ```
-python3 src/pyFilmFinder search "LOTR"
+python3 src/pyFilmFinder search "LoTR"
 ```
 
 This command will search for films related to "LOTR".
