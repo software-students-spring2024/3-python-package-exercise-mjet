@@ -1,4 +1,5 @@
 # pyFilmFinder
+![Python build & test](https://github.com/software-students-spring2024/3-python-package-exercise-mjet/actions/workflows/build.yaml/badge.svg)
 
 ## Project Description
 
