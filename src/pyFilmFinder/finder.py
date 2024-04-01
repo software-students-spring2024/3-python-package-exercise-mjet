@@ -1,6 +1,6 @@
 import os
 import requests
-import find_similar#when I run pytest, I need to prefix imports with src.pyFilmFinder
+import src.pyFilmFinder.find_similar#when I run pytest, I need to prefix imports with src.pyFilmFinder
 #running the program from anywhere else requires me to only write the name of the file I want to import
 from dotenv import load_dotenv
 
@@ -197,4 +197,4 @@ class Finder:
         if target_film not in films_in_genre:
             films_in_genre += [target_film]
 
-        return find_similar.tf_idf(target_film, films_in_genre)
+        return src.pyFilmFinder.find_similar.tf_idf(target_film, films_in_genre)

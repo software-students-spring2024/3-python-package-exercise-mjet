@@ -1,4 +1,5 @@
-from stop_list import closed_class_stop_words
+from src.pyFilmFinder.stop_list import closed_class_stop_words
+#note, when running pytest, change 'from stop_list' to 'from src.pyFilmFinder.stop_list'
 from collections import Counter
 import nltk
 import math
