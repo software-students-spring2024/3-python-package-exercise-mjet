@@ -69,7 +69,7 @@ def tf_idf(target_film, films_in_genre):
     films_in_genre = sorted(films_in_genre, key = lambda x: x['similarity'], reverse = True)
     films_overviews = ''
     for film in films_in_genre:
-        films_overviews += f'{film["title"]},\t{film["similarity"]},\tDescription: {film["overview"]}\n'
+        films_overviews += f'{film["title"]},\tSimilarity: {film["similarity"]:3f},\tDescription: {film["overview"]}\n'
 
     return films_overviews
 
