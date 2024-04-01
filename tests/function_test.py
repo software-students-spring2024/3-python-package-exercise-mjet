@@ -1,7 +1,7 @@
 import pytest
 import os
 import requests
-import sys
+import json
 from src.pyFilmFinder.finder import Finder
 
 finder = Finder()
@@ -136,6 +136,19 @@ def test_format_film():
 
     assert test_formatted_film == finder.format_film(film)
 
-#def test_rank_similar_by_overview():
-    
+def test_rank_similar_by_overview():
+    with open('tests/rank_similar_diehard.json') as f:
+        solution = json.load(f)
+    assert solution == finder.rank_similar_by_overview(finder.get_film_id('Die Hard'))
+
+def test_get_film_id():
+    with open('tests/get_id_diehard.json') as f:
+        solution = json.load(f)
+    assert solution == finder.get_film_id('Die Hard')
+
+def test_get_film_dict():
+    with open('tests/get_dict_diehard.json') as f:
+        solution = json.load(f)
+    assert solution == finder.get_film_dict(finder.get_film_id('Die Hard'))
+
 
