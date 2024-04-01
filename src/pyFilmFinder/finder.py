@@ -1,6 +1,6 @@
 import os
 import requests
-import find_similar
+import src.pyFilmFinder.find_similar 
 from dotenv import load_dotenv
 
 

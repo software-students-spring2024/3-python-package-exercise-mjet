@@ -1,4 +1,4 @@
-from stop_list import closed_class_stop_words
+from src.pyFilmFinder.stop_list import closed_class_stop_words
 from collections import Counter
 import nltk
 import math
@@ -8,7 +8,7 @@ import numpy as np
 def eliminate_stop(words):
     no_stop = dict()
     for i in range(len(words)):
-        if (words[i] not in closed_class_stop_words and (re.findall('\d|\.|\,|\!|\?', words[i]) == [])): #index is not in list of stopwords                    
+        if (words[i] not in closed_class_stop_words): #index is not in list of stopwords                    
             word = words[i]
             try:
                 no_stop[word]+=1
