@@ -1,4 +1,4 @@
-from src.pyFilmFinder.stop_list import closed_class_stop_words
+from stop_list import closed_class_stop_words
 from collections import Counter
 import nltk
 import math
@@ -8,7 +8,9 @@ import numpy as np
 def eliminate_stop(words):
     no_stop = dict()
     for i in range(len(words)):
-        if (words[i] not in closed_class_stop_words): #index is not in list of stopwords                    
+        #for some reason         if (words[i] not in closed_class_stop_words and (re.findall('\d|\.|\,|\!|\?', words[i]) == [])): #index is not in list of stopwords                    
+        #generates invalid escape sequence when running pytest (are parts of re module deprecated?)
+        if (words[i] not in closed_class_stop_words and (re.findall('\d|\.|\,|\!|\?', words[i]) == [])): #index is not in list of stopwords                    
             word = words[i]
             try:
                 no_stop[word]+=1
@@ -67,7 +69,7 @@ def tf_idf(target_film, films_in_genre):
 
     films_in_genre.remove(target_film)
     films_in_genre = sorted(films_in_genre, key = lambda x: x['similarity'], reverse = True)
-    films_overviews = ''
+    films_overviews = f'Selected Film: {target_film["title"]},\tSimilarity: {target_film["similarity"]:3f},\nDescription: {target_film["overview"]}\n\n'
     for film in films_in_genre:
         films_overviews += f'{film["title"]},\tSimilarity: {film["similarity"]:3f},\nDescription: {film["overview"]}\n\n'
 
