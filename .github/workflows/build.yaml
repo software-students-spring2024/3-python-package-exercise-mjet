@@ -1,7 +1,7 @@
 name: CI / CD
 on:
   push:
-    branches: ["main", "tests","JohanBranch"]
+    branches: ["main", "tests","JohanBranch", "marc-2"]
 jobs:
   build:
     runs-on: ubuntu-latest
