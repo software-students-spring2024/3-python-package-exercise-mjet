@@ -5,6 +5,7 @@ import nltk
 import math
 import re
 import numpy as np
+nltk.download('punkt')
 
 def eliminate_stop(words):
     no_stop = dict()
